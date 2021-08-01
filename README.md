@@ -64,7 +64,7 @@ class Solution {
           for (int i = 2; i < nums.size(); i++){
               if (nums[i] != nums[index - 2])
                   nums[index++] = nums[i];
-}
+          }
           return index;
       }
 };

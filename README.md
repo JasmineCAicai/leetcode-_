@@ -95,3 +95,66 @@ public:
     }
 };
 ```
+#### 81. Search in Rotated Sorted Array II
+```cpp
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        int index = 0;
+        for (int i=1; i<nums.size(); i++) {
+            if (nums[i] != nums[i-1])
+                nums[++index] = nums[i];
+        }
+        
+        if (index==0) return nums[0]==target;
+        
+        int last = index + 1;
+        int first = 0, mid;
+        while (first != last) {
+            mid = first + (last - first) / 2;
+            if (target == nums[mid]) return true;
+            if (nums[first] <= nums[mid]) {
+                if (target >= nums[first] && target < nums[mid])
+                    last = mid;
+                else
+                    first = mid + 1;
+            } else {
+                if (target > nums[mid] && target <= nums[last-1])
+                    first = mid + 1;
+                else
+                    last = mid;
+            }
+        }
+        
+        return false;
+    }
+};
+```
+时间复杂度和空间复杂度几乎无差别，但逻辑上较好的方法：
+```cpp
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        int first = 0, last = nums.size();
+        while (first != last) {
+            const int mid = first  + (last - first) / 2;
+            if (nums[mid] == target)
+                return true;
+            if (nums[first] < nums[mid]) {
+                if (nums[first] <= target && target < nums[mid])
+                    last = mid;
+                else
+                    first = mid + 1;
+            } else if (nums[first] > nums[mid]) {
+                if (nums[mid] < target && target <= nums[last-1])
+                    first = mid + 1;
+                else
+                    last = mid;
+            } else
+                //skip duplicate one
+                first++;
+        }
+        return false;
+    }
+};
+```

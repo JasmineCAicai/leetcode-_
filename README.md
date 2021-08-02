@@ -158,3 +158,73 @@ public:
     }
 };
 ```
+#### 4. Median of Two Sorted Arrays
+运行时间较好，但内存使用太多。
+```cpp
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> mergedNum;
+        int l1 = 0, l2 = 0;
+        double ans = 0.00000;
+        while(l1 < nums1.size() && l2 < nums2.size()){
+            if (nums1[l1]<=nums2[l2]) {
+                mergedNum.push_back(nums1[l1]);
+                l1++;
+            }
+            else {
+                mergedNum.push_back(nums2[l2]);
+                l2++;
+            }
+        }
+        while(l1 < nums1.size()) {
+            mergedNum.push_back(nums1[l1]);
+            l1++;
+        }
+        while(l2 < nums2.size()) {
+            mergedNum.push_back(nums2[l2]);
+            l2++;
+        }
+        if (mergedNum.size() == 1) return (double)mergedNum[0];
+        if (mergedNum.size()%2==0) {
+            ans = (double)mergedNum[mergedNum.size()/2-1] + (double)mergedNum[mergedNum.size()/2];
+            ans /= 2;
+        }
+        else {
+            ans = (double)mergedNum[mergedNum.size()/2];
+        }
+        return ans;
+    }
+};
+```
+运行时间较好，但内存使用太多。
+```cpp
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& A, vector<int>& B) {
+        const int m = A.size();
+        const int n = B.size();
+        int total = m + n;
+        if (total & 0x1)
+            return find_kth(A.begin(), m, B.begin(), n, total / 2 + 1);
+        else
+            return (find_kth(A.begin(), m, B.begin(), n, total / 2) + find_kth(A.begin(), m, B.begin(), n, total / 2 + 1)) / 2.0;
+    }
+    
+private:
+    static int find_kth(std::vector<int>::const_iterator A, int m, std::vector<int>::const_iterator B, int n, int k) {
+        //always assume that m is equal or smaller than n
+        if (m > n) return find_kth(B, n, A, m, k);
+        if (m == 0) return *(B + k - 1);
+        if (k == 1) return min(*A, *B);
+        //divide k into two parts
+        int ia = min(k / 2, m), ib = k - ia;
+        if (*(A + ia - 1) < *(B + ib - 1))
+            return find_kth(A + ia, m - ia, B, n, k - ia);
+        else if (*(A + ia - 1) > *(B + ib - 1))
+            return find_kth(A, m, B + ib, n - ib, k - ib);
+        else
+            return A[ia - 1];
+    }
+};
+```

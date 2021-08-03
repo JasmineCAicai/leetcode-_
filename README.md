@@ -249,3 +249,49 @@ public:
     }
 };
 ```
+#### 1. Two Sum
+运行时间较长，但内存使用较少。
+```cpp
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> tmp;
+        vector<int> ans;
+        for (int i=0; i<nums.size(); i++) {
+            tmp.push_back(target-nums[i]);
+        }
+        for (int i=0; i<tmp.size(); i++) {
+            vector<int>::iterator index = find(nums.begin(), nums.end(), tmp[i]);
+            if (index != nums.end() && distance(nums.begin(), index) != i) {
+                ans.push_back(i);
+                ans.push_back(distance(nums.begin(), index));
+                break;
+            }
+        }
+        
+        return ans;
+    }
+};
+```
+运行时间较短，但内存使用较多
+```cpp
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> mapping;
+        vector<int> result;
+        for (int i = 0; i < nums.size(); i++) {
+            mapping[nums[i]] = i;
+        }
+        for (int i = 0; i < nums.size(); i++) {
+            const int gap = target - nums[i];
+            if (mapping.find(gap) != mapping.end() && mapping[gap] > i) {
+                result.push_back(i);
+                result.push_back(mapping[gap]);
+                break;
+            }
+        }
+        return result;
+    }
+};
+```

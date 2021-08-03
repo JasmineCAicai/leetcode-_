@@ -228,3 +228,24 @@ private:
     }
 };
 ```
+#### 128. Longest Consecutive Sequence
+```cpp
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        if(nums.empty()) return 0;
+        sort(nums.begin(),nums.end());
+        nums.erase(unique(nums.begin(),nums.end()),nums.end());
+        int total = 1, tmp = 1;
+        for(int i=1; i<nums.size(); i++){
+            if(nums[i]==(nums[i-1]+1)) tmp++;
+            else {
+                if(total < tmp) total = tmp;
+                tmp = 1;
+            }
+        }
+        if(total < tmp) total = tmp;
+        return total;
+    }
+};
+```

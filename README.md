@@ -330,3 +330,46 @@ public:
     }
 };
 ```
+#### 16. 3Sum Closest
+```cpp
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        sort(nums.begin(), nums.end());
+        int gap, tmp, finalAns, result;
+        auto last = nums.end();
+        for (auto i = nums.begin(); i < last-2; i++) {
+            auto j = i + 1;
+            if (i > nums.begin() && *i == *(i-1)) continue;
+            auto k = last - 1;
+            if (i == nums.begin()) {
+                result = *i + *j + *k;
+                gap = abs(result - target);
+                finalAns = result;
+            }
+            while (j < k) {
+                result = *i + *j + *k;
+                tmp = abs(result - target);
+                if (tmp < gap) {
+                    gap = tmp;
+                    finalAns = result;
+                }
+                if (result < target) {
+                    j++;
+                    while (*j == *(j-1) && j < k) j++;
+                } else if (result > target) {
+                    k--;
+                    while (*k == *(k+1) && k > j) k--;
+                } else {
+                    break;
+                }
+            }
+            if (result == target) {
+                finalAns = result;
+                break;
+            }
+        }
+        return finalAns;
+    }
+};
+```

@@ -461,3 +461,33 @@ public:
     }
 };
 ```
+#### 42. Trapping Rain Water
+好巧妙的方法...
+时间复杂度 O(n)，空间复杂度 O(1)
+```cpp
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        if (height.size() <= 2) return 0;
+        
+        const int s = height.size();
+        int maxInd = 0;
+        for (int i=1; i<s; i++) {
+            if (height[i] > height[maxInd]) maxInd = i;
+        }
+        
+        int total = 0;
+        
+        for (int i=0, high=0; i<maxInd; i++) {
+            if (height[i] > high) high = height[i];
+            else total += (high - height[i]);
+        }
+        for (int i=s-1, high=0; i>maxInd; i--) {
+            if (height[i] > high) high = height[i];
+            else total += (high - height[i]);
+        }
+        
+        return total;
+    }
+};
+```

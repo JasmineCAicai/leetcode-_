@@ -1,4 +1,4 @@
-# leetcode-journey
+# Leetcode Record
 
 ## 线性表
 ### 数组

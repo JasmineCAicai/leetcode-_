@@ -418,3 +418,46 @@ public:
     }
 };
 ```
+#### 36. Valid Sudoku
+```cpp
+class Solution {
+public:
+    bool flag[9];
+    
+    bool isValidSudoku(vector<vector<char>>& board) {
+        for (int i=0; i<9; i++) {
+            // Check row
+            fill(flag, flag + 9, false);
+            for (int j=0; j<9; j++) {
+                if (!check(board[i][j])) return false;
+            }
+            
+            // Check column
+            fill(flag, flag + 9, false);
+            for (int j=0; j<9; j++) {
+                if (!check(board[j][i])) return false;
+            }
+        }
+        
+        // Check square
+        for (int r=0; r < 3; r++) {
+            for (int c=0; c < 3; c++) {
+                fill(flag, flag + 9, false);
+                for (int i=r*3; i<r*3+3; i++) {
+                    for (int j=c*3; j<c*3+3; j++) {
+                        if (!check(board[i][j])) return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
+    bool check(char ch) {
+        if (ch == '.') return true;
+        if (flag[ch - '1']) return false;
+        flag[ch - '1'] = true;
+        return flag[ch - '1'];
+    }
+};
+```

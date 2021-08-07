@@ -492,7 +492,6 @@ public:
 };
 ```
 #### 48. Rotate Image
-这题写出来好开心
 ```cpp
 class Solution {
 public:

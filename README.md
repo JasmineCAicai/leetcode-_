@@ -531,3 +531,25 @@ public:
     }
 };
 ```
+#### 66. Plus One
+```cpp
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int dec = 0;
+        for (int i=digits.size()-1; i>=0; i--) {
+            if (i == digits.size()-1 && digits[i]+1 < 10) digits[i]++;
+            else if (i != digits.size()-1 && digits[i]+dec < 10) {
+                digits[i] += dec;
+                dec = 0;
+            }
+            else {
+                digits[i] = 0;
+                dec = 1;
+            }
+        }
+        if (dec == 1) digits.insert(digits.begin(), 1);
+        return digits;
+    }
+};
+```

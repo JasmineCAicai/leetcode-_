@@ -491,3 +491,43 @@ public:
     }
 };
 ```
+#### 48. Rotate Image
+```cpp
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix[0].size();
+        int tmp;
+        
+        /*
+        * 交换列
+        * C11 C12 C13         C13 C12 C11
+        * C21 C22 C23    =>   C23 C22 C21
+        * C31 C32 C33         C33 C32 C31
+        */
+        for (int i=0; i<n/2; i++) {
+            for (int j=0; j<n; j++) {
+                tmp = matrix[j][i];
+                matrix[j][i] = matrix[j][n-i-1];
+                matrix[j][n-i-1] = tmp;
+            }
+        }
+        
+        /*
+        * 交换斜行(斜行长度等于n)
+        * C13 C12 C11         C31 C21 C11
+        * C23 C22 C21    =>   C32 C22 C12
+        * C33 C32 C31         C33 C23 C13
+        */
+        for (int i=0; i<n-1; i++) {
+            for (int j=0; j<n-i; j++) {
+                tmp = matrix[j][i];
+                matrix[j][i] = matrix[n-i-1][n-j-1];
+                matrix[n-i-1][n-j-1] = tmp;
+            }
+        }
+        
+        return;
+    }
+};
+```

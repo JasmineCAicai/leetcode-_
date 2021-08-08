@@ -553,3 +553,19 @@ public:
     }
 };
 ```
+#### 70. Climbing Stairs ‼️
+递归太慢，用迭代的方法
+```cpp
+class Solution {
+public:
+    int climbStairs(int n) {
+        int prev = 0, tmp = 0, cur = 1;
+        for (int i = 1; i <= n; i++) {
+            tmp = cur;
+            cur += prev;
+            prev = tmp;
+        }
+        return cur;
+    }
+};
+```

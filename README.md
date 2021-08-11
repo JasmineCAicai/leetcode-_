@@ -690,3 +690,38 @@ public:
     }
 };
 ```
+### 单链表
+#### 2. Add Two Numbers
+for循环的运算、条件和边界设置的很巧妙
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode ans(-1); // 头节点
+        ListNode* sum = &ans;
+        int tmp = 0;
+        
+        for (ListNode* pa = l1, *pb = l2; pa != nullptr || pb != nullptr; pa = pa == nullptr ? 0 : pa->next, pb = pb == nullptr ? 0 : pb->next, sum = sum->next) {
+            const int v1 = pa == nullptr ? 0 : pa->val;
+            const int v2 = pb == nullptr ? 0 : pb->val;
+            sum->next = new ListNode((v1 + v2 + tmp) % 10);
+            tmp = (v1 + v2 + tmp) / 10;
+        }
+        
+        if (tmp > 0) {
+            sum->next = new ListNode(tmp);
+        }
+        return ans.next;
+    }
+};
+```

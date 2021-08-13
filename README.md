@@ -762,3 +762,68 @@ public:
     }
 };
 ```
+#### 83. Remove Duplicates from Sorted List
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (!head) return head;
+        int num;
+        ListNode ans(-1);
+        ListNode* rev = &ans;
+        num = head->val;
+        rev->next = head;
+        rev = head;
+        for (head = head->next; head; head = head->next) {
+            if (head->val != num) {
+                rev->next = head;
+                rev = head;
+                num = rev->val;
+            }
+        }
+        rev->next = nullptr;
+        return ans.next;
+    }
+};
+```
+迭代版：运行时间比上一种方法长，所需内存也差不多
+空间复杂度为O(1)
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (!head) return head;
+        
+        for (ListNode* prev = head, *cur = head->next; cur; cur = prev->next) {
+            if (prev->val == cur->val) {
+                prev->next = cur->next;
+                delete cur;
+            }
+            else {
+                prev = cur;
+            }
+        }
+        return head;
+    }
+};
+```

@@ -725,3 +725,40 @@ public:
     }
 };
 ```
+#### 86. Partition List
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode left(-1);
+        ListNode right(-1);
+        
+        ListNode* l_cur = &left;
+        ListNode* r_cur = &right;
+        
+        for (ListNode* cur = head; cur != nullptr; cur = cur->next) {
+            if (cur->val < x) {
+                l_cur->next = cur;
+                l_cur = cur;
+            }
+            else {
+                r_cur->next = cur;
+                r_cur = cur;
+            }
+        }
+        l_cur->next = right.next;
+        r_cur->next = nullptr;
+        return left.next;
+    }
+};
+```

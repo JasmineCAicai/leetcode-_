@@ -899,3 +899,85 @@ public:
     }
 };
 ```
+#### 61. Rotate List
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        
+        if (!head || k == 0) return head;
+            
+        ListNode* tmp = head;
+        int len = 0;
+        for (; tmp; tmp = tmp->next) {
+            len++;
+        }
+        
+        k %= len;
+        
+        if (k == 0 || len == 1) return head;
+        
+        tmp = head;
+        ListNode* newHead, *newTail;
+        for (int i=1; i <= (len - k); i++) {
+            newTail = tmp;
+            tmp = tmp->next;
+        }
+
+        newHead = tmp;
+        
+        while (tmp->next!=nullptr) {
+            tmp = tmp->next;
+        }
+        
+        newTail->next = nullptr;
+        
+        tmp->next = head;
+        
+        return newHead;
+    }
+};
+```
+更好的方法：空间复杂度O(1)
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (head == nullptr || k == 0) return head;
+        int len = 1;
+        ListNode* p = head;
+        while (p->next) { 
+            len++;
+            p = p->next; 
+        }
+        k = len - k % len;
+        p->next = head; 
+        for(int step = 0; step < k; step++) {
+            p = p->next; 
+        }
+        head = p->next; 
+        p->next = nullptr; 
+        return head;
+    }
+};
+```

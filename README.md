@@ -827,3 +827,75 @@ public:
     }
 };
 ```
+#### 82. Remove Duplicates from Sorted List II
+时间复杂度O(n)，空间复杂度也是O(n)（？）
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        //if (!head) return head;
+        
+        ListNode ans(-1);
+        ListNode* filtered = &ans;
+        
+        for (ListNode* prev = head, *cur = head; cur; cur = cur->next) {
+            if (cur->val != prev->val) prev = cur;
+            
+            if (!prev->next) {
+                filtered->next = prev;
+                filtered = prev;
+            }
+            else if (prev->next->val != prev->val) {
+                filtered->next = prev;
+                filtered = prev;
+            }
+        }
+        
+        filtered->next = nullptr;
+        return ans.next;
+    }
+};
+```
+更好的方法：递归，空间复杂度O(1)
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (!head || !head->next) return head;
+        
+        ListNode *p = head->next;
+        if (head->val == p->val) {
+            while (p && head->val == p->val) {
+                ListNode *tmp = p;
+                p = p->next;
+                delete tmp;
+            }
+            delete head;
+            return deleteDuplicates(p);
+        } else {
+            head->next = deleteDuplicates(head->next);
+            return head;
+        }
+    }
+};
+```

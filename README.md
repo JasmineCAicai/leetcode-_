@@ -1055,3 +1055,34 @@ public:
     }
 };
 ```
+#### 24. Swap Nodes in Pairs
+时间复杂度O(n)，空间复杂度O(1)
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        if (!head || !head->next) return head;
+        
+        ListNode ans(-1);
+        ans.next = head;
+        
+        for (ListNode *prev = &ans, *cur = prev->next, *next = cur->next; next; prev = cur, cur = cur->next, next = cur ? cur->next : nullptr) {
+            prev->next = next;
+            cur->next = next->next;
+            next->next = cur;
+        }
+        
+        return ans.next;
+    }
+};
+```

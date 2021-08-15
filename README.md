@@ -981,3 +981,77 @@ public:
     }
 };
 ```
+#### 19. Remove Nth Node From End of List
+空间复杂度O(1)
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* tmp = head;
+        int len = 0;
+        for (; tmp; tmp = tmp->next) {
+            len++;
+        }
+        if (len == 1) return nullptr;
+        n = len - n;
+        
+        ListNode ans(-1);
+        tmp = &ans;
+        
+        for (int i = 1; i <= n; i++, head = head->next) {
+            tmp->next = head;
+            tmp = head;
+        }
+        tmp->next = head->next;
+        delete head;
+        
+        return ans.next;
+    }
+};
+```
+其他方法：设两个指针p,q，让q先走n步，然后p和q一起走，直到q走到尾节点，删除p->next即可。
+空间复杂度O(1)
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode dummy{-1, head};
+        ListNode *p = &dummy, *q = &dummy;
+        
+        for(int i = 0; i < n; i++) {
+            q = q->next;
+        }
+        
+        while(q->next) { 
+            p = p->next;
+            q = q->next; 
+        }
+        
+        ListNode *tmp = p->next;
+        p->next = p->next->next;
+        delete tmp;
+        
+        return dummy.next;
+    }
+};
+```

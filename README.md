@@ -1086,3 +1086,54 @@ public:
     }
 };
 ```
+#### 141. Linked List Cycle
+时间复杂度O(n)，空间复杂度O(n)
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if (!head) return head;
+        map<ListNode*,bool> flag;
+        
+        int i = 0;
+        while (head->next) {
+            if (flag.find(head->next) != flag.end()) return true;
+            flag.insert({head,true});
+            head = head->next;
+        }
+        return false;
+    }
+};
+```
+更好的方法：时间复杂度O(n)，空间复杂度O(1)
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        ListNode *slow = head, *fast = head;
+        
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) return true;
+        }
+        return false;
+    }
+};
+```

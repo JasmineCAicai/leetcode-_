@@ -1201,3 +1201,63 @@ public:
     }
 };
 ```
+#### 143. Reorder List ‼️‼️
+时间复杂度O(n)，空间复杂度O(1)
+先对半切，后半部分翻转完，再合并。
+**翻转不需递归！！**🔅
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    
+    ListNode* reverse(ListNode* head) {
+        if (!head || !head->next) return head;
+        
+        ListNode* prev = head;
+        for (ListNode *curr = head->next, *next = curr->next; curr; prev = curr, curr = next, next = next ? next->next : nullptr) {
+            curr->next = prev;
+        }
+        
+        head->next = nullptr;
+        
+        return prev;
+    }
+    
+    void reorderList(ListNode* head) {
+        
+        if (!head->next) return;
+        
+        ListNode *slow = head, *fast = head, *prev = nullptr;
+        
+        while (fast && fast->next) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        prev->next = nullptr;
+        
+        slow = reverse(slow);
+        
+        // merge two lists
+        ListNode *curr = head;
+        while (curr->next) {
+            ListNode *tmp = curr->next;
+            curr->next = slow;
+            slow = slow->next;
+            curr->next->next = tmp;
+            curr = tmp;
+        }
+        curr->next = slow;
+    }
+};
+```

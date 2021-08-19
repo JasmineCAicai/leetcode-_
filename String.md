@@ -83,3 +83,33 @@ public:
     }
 };
 ```
+## 67. Add Binary
+```cpp
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int lenA = a.length();
+        int lenB = b.length();
+        
+        int sign = 0;
+        int tmp, valA, valB;
+        
+        string ans = "";
+        
+        reverse(a.begin(),a.end());
+        reverse(b.begin(),b.end());
+        
+        for (int i = 0; i < max(lenA,lenB); i++) {
+            valA = i < lenA ? a[i] - '0' : 0;
+            valB = i < lenB ? b[i] - '0' : 0;
+            tmp = (valA + valB + sign) % 2;
+            sign = (valA + valB + sign) / 2;
+            ans.push_back(tmp + 48);
+        }
+        
+        if (sign == 1) ans.push_back('1');
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
+```

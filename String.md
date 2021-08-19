@@ -50,3 +50,36 @@ public:
 };
 ```
 KMP：时间复杂度O(M + N)，空间复杂度O(1)
+## 8. String to Integer (atoi)
+```cpp
+class Solution {
+public:
+    int myAtoi(string s) {
+        int num = 0;
+        int sign = 1;
+        const int len = s.length();
+        int i = 0;
+        
+        while (i < len && s[i] == ' ') {
+            i++;
+        }
+        
+        if (s[i] == '+') i++;
+        else if (s[i] == '-') {
+            i++;
+            sign = -1;
+        }
+        
+        for (; i < len; i++) {
+            if (!isdigit(s[i])) break;
+            
+            if (num > INT_MAX / 10 || (num == INT_MAX / 10 && (s[i] - '0') > INT_MAX % 10)) 
+                return sign == -1 ? INT_MIN : INT_MAX;
+            
+            num = num * 10 + (s[i] - '0');
+        }
+        
+        return num * sign;
+    }
+};
+```

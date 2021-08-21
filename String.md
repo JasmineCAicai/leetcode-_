@@ -113,7 +113,7 @@ public:
     }
 };
 ```
-## 10. Regular Expression Matching
+## 10. Regular Expression Matching ‼️❓❓
 ```cpp
 class Solution {
 public:
@@ -137,6 +137,46 @@ private:
             }
             return isMatch(s, p + 2);
         }
+    }
+};
+```
+## 44. Wildcard Matching ‼️❓❓
+**递归版** \
+会超时，时间复杂度O(n! * m!)，空间复杂度O(n) \
+**迭代版** \
+时间复杂度O(n * m)，空间复杂度O(1)
+```cpp
+class Solution {
+public:
+    bool isMatch(string s, string p) {
+        const char *s_str = s.c_str();
+        const char *p_str = p.c_str();
+        
+        bool flag = false;
+        
+        const char *str, *ptr;
+        
+        for (str = s_str, ptr = p_str; *str != '\0'; str++, ptr++) {
+            if (*ptr == '?') continue;
+            else if (*ptr == '*') {
+                flag = true;
+                s_str = str;
+                p_str = ptr;
+                while (*p_str == '*') p_str++;
+                if (*p_str == '\0') return true;
+                ptr = p_str - 1;
+                str = s_str - 1;
+            }
+            else if (*ptr != *str) {
+                if (!flag) return false;
+                s_str++;
+                str = s_str - 1;
+                ptr = p_str - 1;
+            }
+        }
+        
+        while (*ptr == '*') ptr++;
+        return *ptr == '\0';
     }
 };
 ```

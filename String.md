@@ -180,3 +180,28 @@ public:
     }
 };
 ```
+## 14. Longest Common Prefix
+时间复杂度O(n1 + n2 + ... + )，空间复杂度O(n)（？）
+```cpp
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.size() == 1) return strs[0];
+        
+        string ans = "";
+        
+        int i = 1, ind = 0;
+        while (ind < strs[0].length()) {
+            if (ind == strs[i].length() || strs[i][ind] != strs[0][ind]) break;
+            i++;
+            if (i == strs.size()) {
+                ans.push_back(strs[0][ind]);
+                i = 1;
+                ind++;
+            }
+        }
+        
+        return ans;
+    }
+};
+```

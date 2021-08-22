@@ -205,3 +205,98 @@ public:
     }
 };
 ```
+## 65. Valid Number
+时间复杂度O(n)，空间复杂度O(1)
+```cpp
+class Solution {
+public:
+    bool isNumber(string s) {
+        if (s.length() == 1) {
+            if (isdigit(s[0])) return true;
+            else return false;
+        }
+        
+        int i = 0, dotInd = -1, eInd = -1, plusInd = -1, minusInd = -1, countP = 0, countM = 0;
+        bool dotFlag = false, eFlag = false, ans = true;
+        
+        while (i < s.length()) {
+            if (s[i] == 'e' || s[i] == 'E') {
+                if (eInd != -1 || i == s.length()-1 || s[i+1] == '.') {
+                    ans = false;
+                    break;
+                }
+                eInd = i;
+                if (eInd == 0 || (plusInd != -1 && eInd - plusInd == 1) || (minusInd != -1 && eInd - minusInd == 1)) {
+                    ans = false;
+                    break;
+                }
+            }
+            else if (isdigit(s[i])) {
+                
+            }
+            else if (s[i] == '.') {
+                if (dotInd != -1) {
+                    ans = false;
+                    break;
+                }
+                dotInd = i;
+                if (dotInd != s.length()-1 && (!isdigit(s[dotInd+1]) && s[dotInd+1] != 'e' && s[dotInd+1] != 'E')) {
+                    ans = false;
+                    break;
+                }
+                if (dotInd == 0 && !isdigit(s[dotInd+1])) {
+                    ans = false;
+                    break;
+                }
+                if (dotInd == s.length()-1 && (!isdigit(s[dotInd-1]) || isdigit(s[dotInd+1]))) {
+                    ans = false;
+                    break;
+                }
+                if (dotInd != -1 && eInd != -1 && dotInd > eInd) {
+                    ans = false;
+                    break;
+                }
+            }
+            else if (s[i] == '+' || s[i] == '-') {
+                if (i == s.length()-1 || isalpha(s[i+1])) {
+                    ans = false;
+                    break;
+                }
+                if (i > 0 && isdigit(s[i-1])) {
+                    ans = false;
+                    break;
+                }
+                if (countP == 2 && s[i] == '+') {
+                    ans = false;
+                    break;
+                }
+                else if (s[i] == '+') {
+                    plusInd = i;
+                    countP++;
+                }
+                else if (countM == 2 && s[i] == '-') {
+                    ans = false;
+                    break;
+                }
+                else {
+                    minusInd = i;
+                    countM++;
+                }
+                
+                if (plusInd != -1 && minusInd != -1 && abs(minusInd-plusInd) == 1) {
+                    ans = false;
+                    break;
+                }
+            }
+            else {
+                ans = false;
+                break;
+            }
+            i++;
+        }
+        
+        return ans;
+    }
+};
+```
+另一种方法：使用strtod()，时间复杂度O(n)

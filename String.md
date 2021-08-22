@@ -300,3 +300,24 @@ public:
 };
 ```
 另一种方法：使用strtod()，时间复杂度O(n)
+## 12. Integer to Roman
+```cpp
+class Solution {
+public:
+    string intToRoman(int num) {
+        string roman[13] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int roInt[13] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        
+        string ans;
+        int tmp = 0;
+        for (int i = 0; i < 13; i++) {
+            tmp = num / roInt[i];
+            num %= roInt[i];
+            for (; tmp > 0; tmp--) {
+                ans += roman[i];
+            }
+        }
+        return ans;
+    }
+};
+```

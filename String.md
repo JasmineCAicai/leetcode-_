@@ -355,3 +355,28 @@ public:
     }
 };
 ```
+## 49. Group Anagrams ‼️‼️
+用unordered_map
+```cpp
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        unordered_map<string, vector<string>> group;
+        for (auto s : strs) {
+            string key = s;
+            sort(key.begin(), key.end());
+            group[key].push_back(s);
+        }
+        
+        vector<vector<string>> ans;
+        for (auto it = group.begin(); it != group.end(); it++) {
+            if (it->second.size() > 0) {
+                vector<string> ana;
+                ana.insert(ana.end(),it->second.begin(),it->second.end());
+                ans.push_back(ana);
+            }
+        }
+        return ans;
+    }
+};
+```

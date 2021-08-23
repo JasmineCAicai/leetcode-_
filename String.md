@@ -399,3 +399,66 @@ public:
     }
 };
 ```
+## 71. Simplify Path
+时间复杂度O(n)，空间复杂度O(n)
+```cpp
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string> directories;
+        for (int i = 0; i < path.length(); i++) {
+            string tmp = "";
+            int t = i;
+            while (i < path.length() && path[i] != '/') {
+                tmp = tmp + path[i];
+                i++;
+            }
+            if (t != i) i--;
+            if (tmp == ".") continue;
+            else if (tmp == "..") {
+                if (!directories.empty()) {
+                    directories.pop_back();
+                }
+            } 
+            else if (tmp != "") directories.push_back(tmp);
+        }
+        
+        string ans = "";
+        for (int i = 0; i < directories.size(); i++) {
+            ans = ans + '/' + directories[i];
+        }
+        if (ans.empty()) ans = "/";
+        return ans;
+    }
+};
+```
+其他方法：运行时间和所需内存都较少 ‼️
+时间复杂度O(n)，空间复杂度O(n)
+```cpp
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string> dirs; 
+        for (auto i = path.begin(); i != path.end();) {
+            ++i;
+            auto j = find(i, path.end(), '/');
+            auto dir = string(i, j);
+            if (!dir.empty() && dir != ".") {
+                if (dir == "..") {
+                    if (!dirs.empty())
+                        dirs.pop_back();
+                    } else dirs.push_back(dir);
+            }
+            i = j;
+        }
+        stringstream out;
+        if (dirs.empty()) {
+            out << "/";
+        } else {
+            for (auto dir : dirs)
+                out << '/' << dir;
+        }
+        return out.str();
+    }
+};
+```

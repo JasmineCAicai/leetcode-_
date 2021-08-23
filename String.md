@@ -380,3 +380,22 @@ public:
     }
 };
 ```
+## 58. Length of Last Word
+```cpp
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int i = s.length() - 1;
+        while (s[i] == ' ') {
+            i--;
+        }
+        int length = 0;
+        while (i >= 0) {
+            if (s[i] == ' ') break;
+            i--;
+            length++;
+        }
+        return length;
+    }
+};
+```

@@ -8,3 +8,5 @@
 ## 栈和队列
 ### [4. 栈](https://github.com/JasmineCAicai/leetcode-_/blob/c48c9082d7d79220b62e59887f0ab0432ee8c09e/Stack.md)
 ### 5. 队列
+## 树
+### [6. 二叉树的遍历](https://github.com/JasmineCAicai/leetcode-_/blob/acae7d7f16755eca3729b2a69c8aa1c8e58c4087/Tree_Traversal.md)

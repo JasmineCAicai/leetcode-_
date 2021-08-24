@@ -99,3 +99,28 @@ public:
     }
 };
 ```
+## 32. Longest Valid Parentheses
+时间复杂度O(n)，空间复杂度O(n)
+```cpp
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int top = 0, i = 0, len = 0, tmp = 0;
+        
+        stack<int> brakets;
+        
+        brakets.push(-1);
+        for (; i < s.length(); i++) {
+            if (s[i] == '(') brakets.push(i);
+            else {
+                brakets.pop();
+                if (brakets.empty()) brakets.push(i);
+                tmp = i - brakets.top();
+                len = len < tmp ? tmp : len;
+            }
+        }
+        
+        return len;
+    }
+};
+```

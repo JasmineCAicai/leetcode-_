@@ -10,3 +10,4 @@
 ### 5. 队列
 ## 树
 ### [6. 二叉树的遍历](https://github.com/JasmineCAicai/leetcode-_/blob/acae7d7f16755eca3729b2a69c8aa1c8e58c4087/Tree_Traversal.md)
+### [7. 二叉树的构建](https://github.com/JasmineCAicai/leetcode-_/blob/777b75c1053473584e66995b8ecdb48f6acd571c/Tree_Build.md)

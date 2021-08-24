@@ -1,6 +1,7 @@
 # 二叉树的遍历
 ## 144. Binary Tree Preorder Traversal
-时间复杂度O(n)，空间复杂度O(n)
+此题使用迭代版更合适 \
+迭代版：时间复杂度O(n)，空间复杂度O(n)
 ```cpp
 /**
  * Definition for a binary tree node.

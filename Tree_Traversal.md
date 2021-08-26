@@ -191,3 +191,55 @@ public:
     }
 };
 ```
+## 107. Binary Tree Level Order Traversal II
+在前一题迭代版的基础上reverse即可（递归版同理）
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> ans;
+        vector<int> group;
+        
+        if (root == nullptr) return ans;
+        
+        queue<const TreeNode*> cur_nodes;
+        queue<const TreeNode*> children;
+        
+        cur_nodes.push(root);
+        
+        int level = 0, num = 0;
+        
+        while (!children.empty() || !cur_nodes.empty()) {
+            
+            if (cur_nodes.empty()) cur_nodes.swap(children);
+            
+            if (cur_nodes.empty()) break;
+            
+            const TreeNode* tmp = cur_nodes.front();
+            cur_nodes.pop();
+            group.push_back(tmp->val);
+            if (cur_nodes.empty()) {
+                ans.push_back(group);
+                group.clear();
+            }
+            
+            if (tmp->left != nullptr) children.push(tmp->left);
+            if (tmp->right != nullptr) children.push(tmp->right);
+        }
+        
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
+```

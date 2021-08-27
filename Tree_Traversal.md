@@ -460,3 +460,80 @@ public:
     }
 };
 ```
+## 101. Symmetric Tree
+迭代版：在上一题的基础上作修改即可
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if (root->left == nullptr && root->right == nullptr) return true;
+        if (root->left == nullptr || root->right == nullptr) return false;
+        
+        queue<TreeNode*> s;
+        s.push(root->left);
+        s.push(root->right);
+        
+        TreeNode* p;
+        TreeNode* q;
+        
+        while (!s.empty()) {
+            p = s.front();
+            s.pop();
+            q = s.front();
+            s.pop();
+            
+            if (p == nullptr && q == nullptr) continue;
+            if (p == nullptr || q == nullptr) return false;
+            if (p->val != q->val) return false;
+            
+            s.push(p->left);
+            s.push(q->right);
+            
+            s.push(p->right);
+            s.push(q->left);
+        }
+        
+        return true;
+    }
+};
+```
+递归版：在上一题的基础上作修改即可
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode *root) {
+        if (root == nullptr) return true;
+        return isSymmetric(root->left, root->right);
+    }
+    
+    bool isSymmetric(TreeNode *p, TreeNode *q) {
+        if (p == nullptr && q == nullptr) return true; // 终止条件
+        if (p == nullptr || q == nullptr) return false; // 终止条件
+        return p->val == q->val // 三方合并
+            && isSymmetric(p->left, q->right)
+            && isSymmetric(p->right, q->left);
+    }
+};
+```

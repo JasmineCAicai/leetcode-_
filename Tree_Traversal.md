@@ -572,3 +572,137 @@ public:
     }
 };
 ```
+## 114. Flatten Binary Tree to Linked List
+迭代版一：时间复杂度O(n)，空间复杂度O(n)（？？？是n吗）
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if (root == nullptr) return;
+        
+        vector<TreeNode*> nodes;
+        stack<TreeNode*> s;
+        
+        s.push(root);
+        
+        while (!s.empty()) {
+            TreeNode* tmp = s.top();
+            s.pop();
+            nodes.push_back(tmp);
+            if (tmp->right != nullptr) s.push(tmp->right);
+            if (tmp->left != nullptr) s.push(tmp->left);
+        }
+        
+        int i = 1;
+        root = nodes[0];
+        while (i < nodes.size()) {
+            root->right = nodes[i];
+            root->left = nullptr;
+            root = root->right;
+            i++;
+        }
+    }
+};
+```
+迭代版二：时间复杂度O(n)，空间复杂度O(logn) ‼️‼️‼️
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if (root == nullptr) return;
+        stack<TreeNode*> s;
+        s.push(root);
+        while (!s.empty()) {
+            auto p = s.top();
+            s.pop();
+            
+            if (p->right) s.push(p->right);
+            if (p->left) s.push(p->left);
+            
+            p->left = nullptr;
+            if (!s.empty()) p->right = s.top();
+        }
+    }
+};
+```
+递归版一：时间复杂度O(n)，空间复杂度O(logn) ❓❓❓
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if (root == nullptr) return; 
+        
+        flatten(root->left);
+        flatten(root->right);
+        
+        if (nullptr == root->left) return;
+        
+        TreeNode *p = root->left;
+        while(p->right) p = p->right;
+        p->right = root->right;
+        root->right = root->left;
+        root->left = nullptr;
+    }
+};
+```
+递归版二：时间复杂度O(n)，空间复杂度O(logn) ❓❓❓
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        flatten(root, NULL);
+    }
+    
+private:
+    TreeNode *flatten(TreeNode *root, TreeNode *tail) {
+        if (NULL == root) return tail;
+        root->right = flatten(root->left, flatten(root->right, tail));
+        root->left = NULL;
+        return root;
+    }
+};
+```

@@ -537,7 +537,7 @@ public:
     }
 };
 ```
-## 110. Balanced Binary Tree
+## 110. Balanced Binary Tree ‼️‼️‼️
 时间复杂度O(n)，空间复杂度O(logn)
 ```cpp
 /**
@@ -562,7 +562,7 @@ public:
      * otherwise, returns `-1`.
      */
     int balancedHeight (TreeNode* root) {
-        if (root == nullptr) return 0; // 种植条件
+        if (root == nullptr) return 0; // 终止条件
         
         int left = balancedHeight (root->left);
         int right = balancedHeight (root->right);

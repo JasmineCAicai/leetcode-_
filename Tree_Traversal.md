@@ -419,3 +419,44 @@ public:
     }
 };
 ```
+迭代版：时间复杂度O(n)，空间复杂度O(logn)
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        queue<TreeNode*> s;
+        s.push(p);
+        s.push(q);
+        
+        while (!s.empty()) {
+            p = s.front();
+            s.pop();
+            q = s.front();
+            s.pop();
+            
+            if (p == nullptr && q == nullptr) continue;
+            if (p == nullptr || q == nullptr) return false;
+            if (p->val != q->val) return false;
+            
+            s.push(p->left);
+            s.push(q->left);
+            
+            s.push(p->right);
+            s.push(q->right);
+        }
+        
+        return true;
+    }
+};
+```

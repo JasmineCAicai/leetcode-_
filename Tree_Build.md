@@ -37,3 +37,43 @@ public:
     }
 };
 ```
+## 106. Construct Binary Tree from Inorder and Postorder Traversal
+递归版：时间复杂度O(n)，空间复杂度O(logn)
+```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        return buildTree(begin(inorder), end(inorder), begin(postorder), end(postorder));
+    }
+    
+    template<typename BidiIt>
+    
+    TreeNode* buildTree(BidiIt inFirst, BidiIt inLast, BidiIt postFirst, BidiIt postLast) {
+        if (inFirst == inLast) return nullptr;
+        if (postFirst == postLast) return nullptr;
+        
+        const auto val = *prev(postLast);
+        TreeNode* root = new TreeNode(val);
+        
+        auto inRootPos = find(inFirst, inLast, val);
+        auto leftSize = distance(inFirst, inRootPos);
+        auto postLeftLast = next(postFirst, leftSize);
+        
+        root->left = buildTree(inFirst, inRootPos, postFirst, postLeftLast);
+        root->right = buildTree(next(inRootPos), inLast, postLeftLast, prev(postLast));
+        
+        return root;
+    }
+};
+```

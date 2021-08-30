@@ -177,3 +177,53 @@ public:
     }
 };
 ```
+更好的方法：自底向上 \
+时间复杂度O(n)，空间复杂度O(logn) \
+运行时间比上个方法短很多，内存使用也比上个方法少很多很多
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        int len = 0;
+        ListNode *p = head;
+        while (p) {
+            len++;
+            p = p->next; 
+        }
+        return sortedListToBST(head, 0, len - 1);
+    }
+    
+private:
+    TreeNode* sortedListToBST(ListNode*& list, int start, int end) {
+        if (start > end) return nullptr;
+        int mid = start + (end - start) / 2;
+        TreeNode *leftChild = sortedListToBST(list, start, mid - 1);
+        TreeNode *parent = new TreeNode(list->val);
+        parent->left = leftChild;
+        list = list->next;
+        parent->right = sortedListToBST(list, mid + 1, end);
+        return parent;
+    }
+};
+```

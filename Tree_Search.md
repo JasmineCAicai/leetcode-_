@@ -125,3 +125,55 @@ public:
     }
 };
 ```
+## 109. Convert Sorted List to Binary Search Tree
+在上一题的基础上，先将list里的值存入vector
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        if (!head) return nullptr;
+        
+        vector<int> vals;
+        while (head) {
+            vals.push_back(head->val);
+            head = head->next;
+        }
+        
+        return sortedListToBST(vals, 0, vals.size());
+    }
+    
+    TreeNode* sortedListToBST(vector<int> vals, int first, int last) {
+        if (first >= last) return nullptr;
+        
+        int mid = (last - first) / 2;
+        mid += first;
+        
+        TreeNode* root = new TreeNode(vals[mid]);
+        root->left = sortedListToBST(vals, first, mid);
+        root->right = sortedListToBST(vals, mid + 1, last);
+        
+        return root;
+    }
+};
+```

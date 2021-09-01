@@ -18,7 +18,7 @@
 ## [12. 暴力枚举法]()
 ## [13. 广度优先搜索]()
 ## [14. 深度优先搜索]()
-## [15. 分治法]()
+## [15. 分治法](https://github.com/JasmineCAicai/leetcode-_/blob/bd731bcbf7496026d54c13528e79a8fc576da9ba/Divide_and_Conquer.md)
 ## [16. 贪心法]()
 ## [17. 动态规划]()
 ## [18. 图]()

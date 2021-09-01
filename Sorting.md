@@ -86,3 +86,61 @@ public:
     }
 };
 ```
+## 75. Sort Colors
+捷径版不符合规则
+```cpp
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+    }
+};
+```
+符合规则版
+```cpp
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int pos;
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] < nums[i-1]) {
+                pos = findPos(nums, i, nums[i]);
+                int j = i;
+                int tmp = nums[i];
+                while (j > pos) {
+                    nums[j] = nums[j-1];
+                    j--;
+                }
+                nums[pos] = tmp;
+            }
+        }
+    }
+private:
+    int findPos(vector<int>& nums, int last, int val) {
+        int i = 0;
+        for (; i < last; i++) {
+            if (val < nums[i]) break;
+        }
+        return i;
+    }
+};
+```
+特别的方法 \
+时间复杂度O(n)，空间复杂度O(1)
+```cpp
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int count[3] = {0};
+        for (int i = 0; i < nums.size(); i++) {
+            count[nums[i]]++;
+        }
+        for (int i = 0, j = -1; i < 3; i++) {
+            while (count[i] > 0) {
+                nums[++j] = i;
+                count[i]--;
+            }
+        }
+    }
+};
+```

@@ -1,6 +1,7 @@
 # 分治法
 ## 50. Pow(x, n) ‼️
-x^n = x^(n/2) * x^(n/2) * x^(n%2)
+x^n = x^(n/2) * x^(n/2) * x^(n%2) \
+时间复杂度O(logn)，空间复杂度O(1)
 ```cpp
 class Solution {
 public:

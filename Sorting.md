@@ -63,3 +63,26 @@ public:
     }
 };
 ```
+## 41. First Missing Positive
+```cpp
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        int i = 0;
+        sort(nums.begin(), nums.end());
+        unique(nums.begin(), nums.end());
+        while (i < nums.size() && nums[i] <= 0) {
+            i++;
+        }
+        
+        int positive = 1;
+        while (i < nums.size()) {
+            if (nums[i] != positive) break;
+            i++;
+            positive++;
+        }
+        
+        return positive;
+    }
+};
+```

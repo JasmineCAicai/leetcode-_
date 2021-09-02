@@ -22,4 +22,4 @@
 ## [16. 贪心法](https://github.com/JasmineCAicai/leetcode-_/blob/4edef0645d1b7f79ad962bf5a9b5a31d446363b6/Greedy.md)
 ## [17. 动态规划]()
 ## [18. 图]()
-## [19. 细节实现题]()
+## [19. 细节实现题](https://github.com/JasmineCAicai/leetcode-_/blob/ef1dc62d3f7407fad69e401ca83cb45d94cfe8d4/Details.md)

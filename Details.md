@@ -27,3 +27,56 @@ public:
     }
 };
 ```
+## 9. Palindrome Number
+方法一
+```cpp
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
+        if (x > 0 && x < 10) return true;
+        
+        vector<int> nums;
+        
+        while (x > 0) {
+            nums.push_back(x % 10);
+            x /= 10;
+        }
+        
+        int l = 0, r = nums.size()-1;
+        while (l <= r) {
+            if (nums[l] != nums[r]) return false;
+            l++;
+            r--;
+        }
+        
+        return true;
+    }
+};
+```
+方法二：
+```cpp
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) return false;
+        if (x >= 0 && x < 10) return true;
+        
+        int d = 1;
+        while (x / d >= 10) {
+            d *= 10;
+        }
+        
+        int q = 0, r = 0;
+        while (x > 0) {
+            r = x % 10;
+            q = x / d;
+            if (r != q) return false;
+            x %= d;
+            x /= 10;
+            d /= 100;
+        }
+        return true;
+    }
+};
+```

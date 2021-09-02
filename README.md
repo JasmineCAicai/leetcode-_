@@ -19,7 +19,7 @@
 ## [13. 广度优先搜索]()
 ## [14. 深度优先搜索]()
 ## [15. 分治法](https://github.com/JasmineCAicai/leetcode-_/blob/bd731bcbf7496026d54c13528e79a8fc576da9ba/Divide_and_Conquer.md)
-## [16. 贪心法]()
+## [16. 贪心法](https://github.com/JasmineCAicai/leetcode-_/blob/4edef0645d1b7f79ad962bf5a9b5a31d446363b6/Greedy.md)
 ## [17. 动态规划]()
 ## [18. 图]()
 ## [19. 细节实现题]()

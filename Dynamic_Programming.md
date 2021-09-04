@@ -135,3 +135,24 @@ public:
     }
 };
 ```
+## 91. Decode Ways ‼️
+时间复杂度O(n)，空间复杂度O(1)
+```cpp
+class Solution {
+public:
+    int numDecodings(string s) {
+        if (s[0] == '0') return 0;
+        
+        int prev = 0, cur = 1, tmp = 0;
+        for (int i = 1; i <= s.size(); i++) {
+            if (s[i-1] == '0') cur = 0;
+            if (i < 2 || !(s[i-2] == '1' || (s[i-2] == '2' && s[i-1] <= '6'))) prev = 0;
+            tmp = cur;
+            cur += prev;
+            prev = tmp;
+        }
+        
+        return cur;
+    }
+};
+```

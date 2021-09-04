@@ -45,3 +45,37 @@ public:
     }
 };
 ```
+## 53. Maximum Subarray
+方法一：时间复杂度O(n)，空间复杂度O(n)
+```cpp
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        if (nums.size() == 1) return nums[0];
+        vector<int> ans;
+        ans.push_back(nums[0]);
+        int result = nums[0];
+        for (int i = 1; i < nums.size(); i++) {
+            ans.push_back(max(nums[i], ans[i-1] + nums[i]));
+            result = result < ans[i] ? ans[i] : result;
+        }
+        
+        return result;
+    }
+};
+```
+方法二：时间复杂度O(n)，空间复杂度O(1) ‼️
+```cpp
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int prev = nums[0], result = nums[0];
+        for (int i = 1; i < nums.size(); i++) {
+            prev = max(nums[i], prev + nums[i]);
+            result = prev > result ? prev : result;
+        }
+        
+        return result;
+    }
+};
+```

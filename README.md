@@ -20,6 +20,6 @@
 ## [14. 深度优先搜索]()
 ## [15. 分治法](https://github.com/JasmineCAicai/leetcode-_/blob/bd731bcbf7496026d54c13528e79a8fc576da9ba/Divide_and_Conquer.md)
 ## [16. 贪心法](https://github.com/JasmineCAicai/leetcode-_/blob/4edef0645d1b7f79ad962bf5a9b5a31d446363b6/Greedy.md)
-## [17. 动态规划]()
+## [17. 动态规划](https://github.com/JasmineCAicai/leetcode-_/blob/36668cdcde5515e47a072a39bc765a748630407a/Dynamic_Programming.md)
 ## [18. 图]()
 ## [19. 细节实现题](https://github.com/JasmineCAicai/leetcode-_/blob/ef1dc62d3f7407fad69e401ca83cb45d94cfe8d4/Details.md)

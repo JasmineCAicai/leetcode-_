@@ -1,6 +1,6 @@
 # 动态规划
 ## 120. Triangle
-时间复杂度O(n^2)，空间复杂度和原数组一样，并没有新增较大空间。
+从上往下法：时间复杂度O(n^2)，空间复杂度O(1)
 ```cpp
 class Solution {
 public:
@@ -27,6 +27,21 @@ public:
         }
         
         return ans;
+    }
+};
+```
+更简洁的方法：‼️ \
+从下往上法：时间复杂度O(n^2)，空间复杂度O(1)
+```cpp
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        for (int i = triangle.size() - 2; i >= 0; i--) {
+            for (int j = 0; j < triangle[i].size(); j++) {
+                triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1]);
+            }
+        }
+        return triangle[0][0];
     }
 };
 ```

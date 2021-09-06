@@ -124,3 +124,40 @@ public:
     }
 };
 ```
+## 22. Generate Parentheses
+```cpp
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        for (int i = 0; i < n; i++) {
+            left.push('(');
+            right.push(')');
+        }
+        generateParenthesis("");
+        return ans;
+    }
+    
+private:
+    stack<char> left, right;
+    vector<string> ans;
+    void generateParenthesis(string s) {
+        if (left.empty() && right.empty()) {
+            ans.push_back(s);
+            return;
+        }
+        
+        if (!left.empty()) {
+            char l = left.top();
+            left.pop();
+            generateParenthesis(s + l);
+            left.push(l);
+        }
+        if (!right.empty() && left.size() < right.size()) {
+            char r = right.top();
+            right.pop();
+            generateParenthesis(s + r);
+            right.push(r);
+        }
+    }
+};
+```

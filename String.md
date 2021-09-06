@@ -462,3 +462,32 @@ public:
     }
 };
 ```
+## 5. Longest Palindromic Substring
+时间复杂度O(n^2)，空间复杂度O(1)
+```cpp
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.size() == 1) return s;
+        string ans, str1, str2;
+        int i = 0;
+        while (i < s.size()) {
+            str1 = palindrome(s, i, i);
+            str2 = palindrome(s, i, i + 1);
+            ans = str1.size() > ans.size() ? str1 : ans;
+            ans = str2.size() > ans.size() ? str2 : ans;
+            i++;
+        }
+        return ans;
+    }
+    
+private:
+    string palindrome(string s, int l, int r) {
+        while (l >= 0 && r < s.size() && s[l] == s[r]) {
+            l--;
+            r++;
+        }
+        return s.substr(l + 1, r - l - 1);
+    }
+};
+```

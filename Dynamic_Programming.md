@@ -259,3 +259,69 @@ public:
     }
 };
 ```
+## 5. Longest Palindromic Substring
+时间复杂度O(n^2)，空间复杂度O(1)
+```cpp
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.size() == 1) return s;
+        string ans, str1, str2;
+        int i = 0;
+        while (i < s.size()) {
+            str1 = palindrome(s, i, i);
+            str2 = palindrome(s, i, i + 1);
+            ans = str1.size() > ans.size() ? str1 : ans;
+            ans = str2.size() > ans.size() ? str2 : ans;
+            i++;
+        }
+        return ans;
+    }
+    
+private:
+    string palindrome(string s, int l, int r) {
+        while (l >= 0 && r < s.size() && s[l] == s[r]) {
+            l--;
+            r++;
+        }
+        return s.substr(l + 1, r - l - 1);
+    }
+};
+```
+## 22. Generate Parentheses
+```cpp
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        for (int i = 0; i < n; i++) {
+            left.push('(');
+            right.push(')');
+        }
+        generateParenthesis("");
+        return ans;
+    }
+    
+private:
+    stack<char> left, right;
+    vector<string> ans;
+    void generateParenthesis(string s) {
+        if (left.empty() && right.empty()) {
+            ans.push_back(s);
+            return;
+        }
+        
+        if (!left.empty()) {
+            char l = left.top();
+            left.pop();
+            generateParenthesis(s + l);
+            left.push(l);
+        }
+        if (!right.empty() && left.size() < right.size()) {
+            char r = right.top();
+            right.pop();
+            generateParenthesis(s + r);
+            right.push(r);
+        }
+    }
+};
+```

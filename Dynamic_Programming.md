@@ -412,3 +412,37 @@ public:
     }
 };
 ```
+## 119. Pascal's Triangle II
+```cpp
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> ans;
+        vector<int> prev;
+        
+        if (rowIndex == 0) {
+            ans.push_back(1);
+            return ans;
+        }
+        if (rowIndex == 1) {
+            ans.push_back(1);
+            ans.push_back(1);
+            return ans;
+        }
+        
+        ans.push_back(1);
+        ans.push_back(1);
+        
+        while (rowIndex >= 2) {
+            prev = ans;
+            for (int i = 1; i < prev.size(); i++) {
+                ans[i] = prev[i-1] + prev[i];
+            }
+            ans.push_back(1);
+            rowIndex--;
+        }
+        
+        return ans;
+    }
+};
+```

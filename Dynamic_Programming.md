@@ -325,3 +325,31 @@ private:
     }
 };
 ```
+## 72. Edit Distance
+时间复杂度O(m * n)，空间复杂度O(m * n)
+```cpp
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int m = word1.size() + 1;
+        int n = word2.size() + 1;
+        int table[m][n];
+        
+        for (int i = 0; i < m; i++) {
+            table[i][0] = i;
+        }
+        for (int j = 0; j < n; j++) {
+            table[0][j] = j;
+        }
+        
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (word1[i-1] == word2[j-1]) table[i][j] = table[i-1][j-1];
+                else table[i][j] = min(table[i-1][j] + 1, min(table[i-1][j-1] + 1, table[i][j-1] + 1));
+            }
+        }
+        
+        return table[m-1][n-1];
+    }
+};
+```

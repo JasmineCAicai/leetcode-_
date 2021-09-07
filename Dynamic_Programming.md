@@ -393,3 +393,22 @@ private:
     }
 };
 ```
+## 45. Jump Game II ‼️‼️‼️‼️‼️
+```cpp
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size() - 1, i = 0, pre = 0, cur = 0;
+        int steps = 0;
+        while (cur < n) {
+            steps++;
+            pre = cur;
+            for (; i <= pre; i++) {
+                cur = max(cur, i + nums[i]);
+            }
+            if (cur == pre) return -1; // cannot reach destination
+        }
+        return steps;
+    }
+};
+```

@@ -259,7 +259,7 @@ public:
     }
 };
 ```
-## 5. Longest Palindromic Substring
+## 5. Longest Palindromic Substring ‼️‼️‼️
 时间复杂度O(n^2)，空间复杂度O(1)
 ```cpp
 class Solution {
@@ -325,7 +325,7 @@ private:
     }
 };
 ```
-## 72. Edit Distance
+## 72. Edit Distance ‼️‼️‼️
 时间复杂度O(m * n)，空间复杂度O(m * n)
 ```cpp
 class Solution {
@@ -350,6 +350,46 @@ public:
         }
         
         return table[m-1][n-1];
+    }
+};
+```
+## 887. Super Egg Drop ‼️‼️
+这个方法有时候会超时 \
+时间复杂度O(k * n * logn)，空间复杂度O(k * n)
+```cpp
+class Solution {
+public:
+    int superEggDrop(int k, int n) {
+        return calc(k,n);
+    }
+private:
+    map<pair<int,int>,int> table;
+    int calc(int k, int n) {
+        if (k == 1) return n;
+        if (n == 0) return 0;
+        if (table.find({k,n}) != table.end()) return table[make_pair(k,n)];
+        
+        int res = INT_MAX;
+        int lo = 1, hi = n, mid, broken, not_broken;
+        
+        while (lo <= hi) {
+            mid = (lo + hi) / 2;
+            
+            broken = calc(k-1, mid - 1);
+            not_broken = calc(k, n - mid);
+            
+            if (broken > not_broken) {
+                hi = mid - 1;
+                res = min(res, broken + 1);
+            }
+            else {
+                lo = mid + 1;
+                res = min(res, not_broken + 1);
+            }
+        }
+        
+        table.insert(make_pair(make_pair(k,n),res));
+        return res;
     }
 };
 ```

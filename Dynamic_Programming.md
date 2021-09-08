@@ -542,3 +542,20 @@ public:
     }
 };
 ```
+## 392. Is Subsequence
+```cpp
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        const char *i = s.c_str(), *j = t.c_str();
+        while (*i != '\0' && *j != '\0') {
+            if (*i == *j) {
+                i++;
+                j++;
+            }
+            else j++;
+        }
+        return *i == '\0';
+    }
+};
+```

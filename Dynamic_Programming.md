@@ -648,7 +648,7 @@ public:
     }
 };
 ```
-## 877. Stone Game
+## 877. Stone Game ‼️‼️
 ```cpp
 class Solution {
 public:

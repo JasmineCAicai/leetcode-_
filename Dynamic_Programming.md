@@ -626,3 +626,25 @@ public:
     }
 };
 ```
+## 516. Longest Palindromic Subsequence
+```cpp
+class Solution {
+public:
+    int longestPalindromeSubseq(string s) {
+        int n = s.size();
+        vector<vector<int>> ans(n, vector<int>(n, 0));
+        for (int i = 0; i < n; i++) {
+            ans[i][i] = 1;
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                if (s[i] == s[j]) 
+                    ans[i][j] = ans[i + 1][j - 1] + 2;
+                else
+                    ans[i][j] = max(ans[i + 1][j], ans[i][j - 1]);
+            }
+        }
+        return ans[0][n-1];
+    }
+};
+```

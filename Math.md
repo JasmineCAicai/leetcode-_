@@ -68,3 +68,20 @@ public:
     }
 };
 ```
+## 326. Power of Three
+```cpp
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        if (n <= 0) return false;
+        
+        long long a = 1;
+        
+        while (a < n) {
+            a *= 3;
+        }
+            
+        return a == n;
+    }
+};
+```

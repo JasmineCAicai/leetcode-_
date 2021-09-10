@@ -37,3 +37,17 @@ public:
     }
 };
 ```
+## 231. Power of Two
+```cpp
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+        if (n != 1 && n % 2 != 0) return false;
+        long long tmp = 1;
+        while (tmp < n) {
+            tmp *= 2;
+        }
+        return tmp == n;
+    }
+};
+```

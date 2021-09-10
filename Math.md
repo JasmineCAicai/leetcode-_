@@ -19,7 +19,8 @@ public:
     }
 };
 ```
-## 204. Count Primes
+## 204. Count Primes ‼️‼️‼️
+好巧的方法
 ```cpp
 class Solution {
 public:
@@ -48,6 +49,22 @@ public:
             tmp *= 2;
         }
         return tmp == n;
+    }
+};
+```
+## 268. Missing Number
+```cpp
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int i = 0, n = nums.size(), ans = 0;
+        while (i < n) {
+            if (ans != nums[i]) break;
+            ans++;
+            i++;
+        }
+        return ans;
     }
 };
 ```

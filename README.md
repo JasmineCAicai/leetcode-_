@@ -23,3 +23,4 @@
 ## [17. 动态规划](https://github.com/JasmineCAicai/leetcode-_/blob/36668cdcde5515e47a072a39bc765a748630407a/Dynamic_Programming.md)
 ## [18. 图]()
 ## [19. 细节实现题](https://github.com/JasmineCAicai/leetcode-_/blob/ef1dc62d3f7407fad69e401ca83cb45d94cfe8d4/Details.md)
+## [20. 数学](https://github.com/JasmineCAicai/leetcode-_/blob/a179cddf9055e650c7424b3d64fd5632746bb961/Math.md)

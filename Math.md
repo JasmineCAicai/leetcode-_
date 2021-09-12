@@ -161,3 +161,33 @@ public:
     }
 };
 ```
+## 179. Largest Number ‼️‼️‼️
+自定义compare函数
+```cpp
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) {
+        vector<string> numStrs;
+        for (int i = 0; i < nums.size(); i++) {
+            numStrs.push_back(to_string(nums[i]));
+        }
+        sort(numStrs.begin(), numStrs.end(), compareString);
+        
+        if (numStrs[0] == "0") return "0";
+        
+        string ans = "";
+        for (auto str : numStrs) {
+            ans += str;
+        }
+        
+        return ans;
+    }
+
+private:
+    static int compareString(string a, string b) {
+        string str1 = a + b;
+        string str2 = b + a;
+        return str1 > str2;
+    }
+};
+```

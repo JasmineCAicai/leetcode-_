@@ -127,3 +127,37 @@ public:
     }
 };
 ```
+## 43. Multiply Strings ‼️‼️‼️
+```cpp
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        int dec = 0, s1 = num1.size(), s2 = num2.size();
+        string ans(s1 + s2, '0');
+        
+        for (int i = s1 - 1; i >= 0; i--) {
+            int a = num1[i] - '0';
+            
+            for (int j = s2 - 1; j >= 0; j--) {
+                int b = num2[j] - '0';
+                int c = ans[i + j + 1] - '0';
+                int d = a * b + c + dec;
+                ans[i + j + 1] = d % 10 + '0';
+                dec = d / 10;
+            }
+            
+            if (dec != 0) {
+                ans[i] = dec + '0';
+                dec = 0;
+            }
+        }
+        
+        int i = 0;
+        while (i < ans.size() && ans[i] == '0') {
+            i++;
+        }
+        
+        return i == ans.size() ? "0" : ans.substr(i);
+    }
+};
+```

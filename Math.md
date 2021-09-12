@@ -110,3 +110,20 @@ public:
     }
 };
 ```
+## 441. Arranging Coins
+```cpp
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        int i = 1;
+        long long total = 1;
+        while (total < n) {
+            i++;
+            total += i;
+        }
+        
+        if (total == n) return i;
+        return i - 1;
+    }
+};
+```

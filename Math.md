@@ -97,3 +97,16 @@ public:
     }
 };
 ```
+## 342. Power of Four
+```cpp
+class Solution {
+public:
+    bool isPowerOfFour(int n) {
+        long long exp = 1;
+        while (exp < n) {
+            exp *= 4;
+        }
+        return exp == n;
+    }
+};
+```

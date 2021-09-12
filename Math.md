@@ -167,27 +167,22 @@ public:
 class Solution {
 public:
     string largestNumber(vector<int>& nums) {
-        vector<string> numStrs;
+        vector<string> numStrs(nums.size());
+        
         for (int i = 0; i < nums.size(); i++) {
-            numStrs.push_back(to_string(nums[i]));
+            numStrs[i] = to_string(nums[i]);
         }
-        sort(numStrs.begin(), numStrs.end(), compareString);
+        
+        sort(numStrs.begin(), numStrs.end(), [](string &a, string &b){ return a + b > b + a; });
         
         if (numStrs[0] == "0") return "0";
         
         string ans = "";
-        for (auto str : numStrs) {
+        for (const auto &str : numStrs) {
             ans += str;
         }
         
         return ans;
-    }
-
-private:
-    static int compareString(string a, string b) {
-        string str1 = a + b;
-        string str2 = b + a;
-        return str1 > str2;
     }
 };
 ```

@@ -186,3 +186,32 @@ public:
     }
 };
 ```
+## 1323. Maximum 69 Number
+```cpp
+class Solution {
+public:
+    int maximum69Number (int num) {
+        if (num == 9999) return num;
+        vector<int> n(4, 0);
+        int ans = 0;
+        int i = 3;
+        while (num > 0) {
+            n[i] = num % 10;
+            num /= 10;
+            i--;
+        }
+        for (int j = i+1; j < 4; j++) {
+            if (n[j] == 6) {
+                n[j] = 9;
+                break;
+            }
+        }
+        ans = n[i+1];
+        for (int j = i+2; j < 4; j++) {
+            ans *= 10;
+            ans += n[j];
+        }
+        return ans;
+    }
+};
+```

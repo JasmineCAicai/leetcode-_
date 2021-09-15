@@ -776,3 +776,25 @@ public:
     }
 };
 ```
+## 198. House Robber
+```cpp
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) return nums[0];
+        if (n == 2) return nums[0] > nums[1] ? nums[0] : nums[1];
+        
+        int money[n][2];
+        money[0][0] = 0;
+        money[0][1] = nums[0];
+        money[1][0] = nums[0];
+        money[1][1] = max(nums[1], nums[0]);
+        for (int i = 2; i < n; i++) {
+            money[i][0] = max(money[i-1][0], money[i-1][1]);
+            money[i][1] = money[i-1][0] + nums[i];
+        }
+        return max(money[n - 1][0], money[n - 1][1]);
+    }
+};
+```

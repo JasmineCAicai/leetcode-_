@@ -871,3 +871,21 @@ public:
     }
 };
 ```
+## 322. Coin Change
+```cpp
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        vector<int> money(amount + 1, amount + 1);
+        money[0] = 0;
+        int n = coins.size();
+        for (int i = 1; i < amount + 1; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i >= coins[j]) money[i] = min(money[i], money[i - coins[j]] + 1);
+            }
+        }
+        
+        return money[amount] > amount ? -1 : money[amount];
+    }
+};
+```

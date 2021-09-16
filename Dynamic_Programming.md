@@ -798,3 +798,43 @@ public:
     }
 };
 ```
+## 213. House Robber II ‼️‼️‼️
+这次是一个环，那么简单来看，即存在三种情况： \
+（1）抢劫第一家，但不抢劫最后一家，即数组范围为 0 ～ n - 1 \
+（2）不抢劫第一家，但抢劫最后一家，即数组范围为 1 ～ n \
+（3）不抢劫第一家，也不抢劫最后一家，即数组范围为 1 ~ n - 1 \
+以上三种情况，第三种绝对比前两种得到的结果更小，因此只需判断前两种哪个结果更大即可。
+```cpp
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) return nums[0];
+        if (n == 2) return max(nums[0], nums[1]);
+        int ans1 = findMax(nums, 0, n - 1);
+        int ans2 = findMax(nums, 1, n);
+        return max(ans1, ans2);
+    }
+    
+private:
+    int findMax(vector<int>& nums, int start, int end) {
+        int money[end - start][2];
+        for (int i = 0; i < end - start; i++) {
+            if (i == 0) {
+                money[i][0] = 0;
+                money[i][1] = nums[start];
+                continue;
+            }
+            else if (i == 1) {
+                money[i][0] = nums[start];
+                money[i][1] = nums[start + i];
+                continue;
+            }
+            money[i][0] = max(money[i - 1][0], money[i - 1][1]);
+            money[i][1] = nums[start + i] + money[i - 1][0];
+        }
+        
+        return max(money[end - start - 1][0], money[end - start - 1][1]);
+    }
+};
+```

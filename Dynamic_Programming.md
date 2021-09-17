@@ -924,3 +924,43 @@ public:
     }
 };
 ```
+## 740. Delete and Earn
+```cpp
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums) {
+        int n = nums.size();
+        
+        sort(nums.begin(), nums.end());
+        
+        vector<int> number;
+        vector<int> subtotal;
+        
+        for (int i = 0; i < n; i++) {
+            int j = i;
+            int t = 0;
+            while (j < n && nums[i] == nums[j]) {
+                t += nums[j];
+                j++;
+            }
+            number.push_back(nums[i]);
+            subtotal.push_back(t);
+            i = (--j);
+        }
+        
+        vector<int> ans(number.size());
+        
+        ans[0] = subtotal[0];
+        
+        for (int i = 1; i < ans.size(); i++) {
+            if (number[i] != number[i - 1] + 1) ans[i] = ans[i - 1] + subtotal[i];
+            else {
+                if (i == 1) ans[1] = max(ans[i - 1], subtotal[i]);
+                else ans[i] = max(ans[i - 1], subtotal[i] + ans[i - 2]);
+            }
+        }
+        
+        return ans[number.size() - 1];
+    }
+};
+```
